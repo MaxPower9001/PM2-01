@@ -3,7 +3,7 @@ package umsatz;
 import java.util.Arrays;
 
 /**
- * Created by Rene on 03.10.2016.
+ * Created by Hubert and Herbert on 03.10.2016.
  */
 public class Kasse {
 
@@ -44,11 +44,7 @@ public class Kasse {
         GeldBetrag returnGeldBetrag = new GeldBetrag();
 
         for (Rechnung rechnung : getRechnungen()) {
-            for (Position position : rechnung.getPositionen()) {
-                if(position.equals(pos)){
-                    returnGeldBetrag = returnGeldBetrag.add(position.getGeldBetrag());
-                }
-            }
+        	returnGeldBetrag = returnGeldBetrag.add(rechnung.summePosition(pos));
         }
 
         return returnGeldBetrag;
@@ -56,17 +52,16 @@ public class Kasse {
 
     @Override
     public String toString(){
-        String returnString = "";
-
-        for (Rechnung rechnung : getRechnungen()) {
-            returnString += rechnung.toString() + "\n\n\n";
-        }
-
-        return returnString;
+        return "Kasse:" + Arrays.toString(getRechnungen());
     }
 
-    public Rechnung[] getRechnungen() {
+    private Rechnung[] getRechnungen() {
         return Arrays.copyOf(rechnungen,cursor);
+    }
+    
+    public int getRechnungCount()
+    {
+    	return getRechnungen().length;
     }
 }
 

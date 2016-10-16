@@ -24,18 +24,25 @@ public class KasseTest {
         d = new Rechnung(1337);
         e = new Rechnung(4711);
         f = new Rechnung(42);
-        d.add(a);
-        d.add(a);
-        d.add(a);
-        d.add(a);
-        d.add(b);
-        d.add(c);
-        e.add(a);
-        e.add(a);
-        e.add(a);
-        f.add(c);
-        f.add(c);
-        f.add(c);
+        
+        d.add(a); // 5€
+        d.add(b); // 6€
+        d.add(c); // 5€
+        d.add(a); // 5€
+        e.add(a); // 5€
+        e.add(b); // 6€
+        e.add(b); // 6€
+        e.add(b); // 6€
+        f.add(a); // 5€
+        f.add(a); // 5€
+        f.add(a); // 5€
+        f.add(a); // 5€
+        f.add(a); // 5€
+        f.add(a); // 5€
+        f.add(a); // 5€
+        //   Summe: 79€
+        
+        
 
     }
     @Test
@@ -44,25 +51,29 @@ public class KasseTest {
         k.add(d);
         k.add(e);
         k.add(f);
-        System.out.println(k.toString());
+        k.add(f);
+        k.add(f);
+        k.add(f);
+        k.add(f);
+        assertEquals(k.getRechnungCount(),7);
     }
 
     @Test
-    public void TestKassenStand() throws Exception {
+    public void TestKassenStand() throws Exception, UngueltigerGeldbetragException {
         Kasse k = new Kasse();
         k.add(d);
         k.add(e);
         k.add(f);
-        assertEquals("61€",k.kassenStand().toString());
+        assertEquals(new GeldBetrag(79,0),k.kassenStand());
     }
 
     @Test
-    public void TestSummePosition() throws Exception {
+    public void TestSummePosition() throws Exception, UngueltigerGeldbetragException {
         Kasse k = new Kasse();
         k.add(d);
         k.add(e);
         k.add(f);
-        assertEquals("20€",k.summePosition(c).toString());
+        assertEquals(new GeldBetrag(5,0),k.summePosition(c));
 
     }
 

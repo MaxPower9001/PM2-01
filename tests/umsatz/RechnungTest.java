@@ -12,13 +12,15 @@ import static org.junit.Assert.*;
  * Created by Rene on 03.10.2016.
  */
 public class RechnungTest {
-    Position a;
-    Position b;
-    Position c;
+    private Position a,a1,a2;
+    private Position b;
+    private Position c;
 
     @Before
     public void setUp() throws Exception, UngueltigerGeldbetragException {
         a = new Position("Hackfleischbraten", new GeldBetrag(500));
+        a1 = new Position("Hackfleischbraten", new GeldBetrag(500));
+        a2 = new Position("Braten", new GeldBetrag(500));
         b = new Position("Hackfleischbraten", new GeldBetrag(600));
         c = new Position("Hackfleischbraten mit Zwiebeln", new GeldBetrag(500));
     }
@@ -36,7 +38,7 @@ public class RechnungTest {
         rechnung.add(c);
         rechnung.add(c);
         rechnung.add(c);
-        assertEquals(10,rechnung.getPositionen().length);
+        assertEquals(10,rechnung.getPositionenCount());
     }
 
     @Test
@@ -53,7 +55,7 @@ public class RechnungTest {
         rechnung.add(c);
         rechnung.add(c);
         rechnung.add(c);
-        assertEquals("56€",rechnung.rechnungsSumme().toString());
+        assertEquals(new GeldBetrag(56,0),rechnung.rechnungsSumme());
     }
 
     @Test
@@ -78,7 +80,8 @@ public class RechnungTest {
         rechnung.add(c);
         rechnung.add(c);
         rechnung.add(c);
-        assertEquals("11€",rechnung.summePosition(a).toString());
+        assertEquals(new GeldBetrag(11,0),rechnung.summePosition(a1));
+        assertEquals(new GeldBetrag(0,0),rechnung.summePosition(a2));
     }
 
     @Test
@@ -95,7 +98,6 @@ public class RechnungTest {
         rechnung.add(c);
         rechnung.add(c);
         rechnung.add(c);
-        System.out.println(rechnung.toString());
     }
 
 }

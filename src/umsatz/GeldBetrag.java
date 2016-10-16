@@ -21,13 +21,13 @@ public class GeldBetrag {
 
     public GeldBetrag(int euroBetrag, int centBetrag) throws UngueltigerGeldbetragException {
         this(euroBetrag * 100 + centBetrag);
-        if(centBetrag < 0 || centBetrag > 99 || euroBetrag < 0) {
+        if(centBetrag < 0 || euroBetrag < 0) {
             throw new UngueltigerGeldbetragException();
         }
     }
 
     @Override
-    public String toString(){
+    public String toString(){    	
         String returnString = "";
         if(betrag % 100 == 0){
             returnString = String.valueOf(betrag/100);
@@ -47,9 +47,32 @@ public class GeldBetrag {
         try {
              returnGeldBetrag = new GeldBetrag(geldBetrag.betrag + this.betrag);
         } catch (UngueltigerGeldbetragException e) {
-            // Holy moly hold your horses if this ever happens
-            e.printStackTrace();
+        	// wird nie erreichtr
         }
         return returnGeldBetrag;
     }
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + betrag;
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (this.getClass() != obj.getClass())
+			return false;
+		GeldBetrag other = (GeldBetrag) obj;
+		if (betrag != other.betrag)
+			return false;
+		return true;
+	}
+    
+    
 }
